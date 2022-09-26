@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Country, State } from 'country-state-city';
 const Shipping = () => {
   return (
     <section className='shipping'>
@@ -18,7 +18,10 @@ const Shipping = () => {
             <label>Country</label>
             <select>
               <option value='country'>Country</option>
-              <option value='country'>Nepal</option>
+              {Country &&
+                Country.getAllCountries().map((country) => (
+                  <option value={country.isoCode}>{country.name}</option>
+                ))}
             </select>
           </div>
 
@@ -26,7 +29,10 @@ const Shipping = () => {
             <label>State</label>
             <select>
               <option value='state'>Kathmandu</option>
-              <option value='state'>Pokhara</option>
+              {State &&
+                State.getStatesOfCountry('NP').map((state) => (
+                  <option value={state.isoCode}>{state.name}</option>
+                ))}
             </select>
           </div>
 
