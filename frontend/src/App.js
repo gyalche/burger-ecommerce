@@ -16,6 +16,7 @@ import Dashboard from './components/admin/Dashboard';
 import Orders from './components/admin/Orders';
 import Users from './components/admin/Users';
 import About from './components/about/About';
+import NotFound from './components/layout/NotFound';
 
 import './styles/header.scss';
 import './styles/home.scss';
@@ -33,6 +34,7 @@ import './styles/table.scss';
 import './styles/orderdetails.scss';
 import './styles/dashboard.scss';
 import './styles/about.scss';
+import './styles/notfound.scss';
 
 function App() {
   return (
@@ -54,6 +56,8 @@ function App() {
           <Route path='/admin/users' element={<Users />} />
           <Route path='/admin/orders' element={<Orders />} />
           <Route path='/about' element={<About />} />
+
+          <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
       </Router>
