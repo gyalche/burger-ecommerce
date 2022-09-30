@@ -17,11 +17,8 @@ const Box = ({ title, value }) => (
 );
 const Dashboard = () => {
   const data = {
-    labels: ['Preparing', 'Shipping', 'Delivered'],
-
     datasets: [
       {
-        label: '# no of orders',
         data: [2, 3, 4],
         backgroundColor: [
           'rgba(159,63,176,0.1)',
@@ -30,8 +27,10 @@ const Dashboard = () => {
         ],
         borderColor: ['rgb(159,63,176)', 'rgb(78,63,176)', 'rgb(156,0,60)'],
         borderWidth: 1,
+        label: '# no of orders',
       },
     ],
+    labels: ['Preparing', 'Shipping', 'Delivered'],
   };
   return (
     <section className='dashboard'>

@@ -56,7 +56,6 @@ function App() {
           <Route path='/admin/users' element={<Users />} />
           <Route path='/admin/orders' element={<Orders />} />
           <Route path='/about' element={<About />} />
-
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

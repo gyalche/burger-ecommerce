@@ -12,7 +12,13 @@ dotenv.config({ path: './config/config.env' });
 
 currentDB();
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  })
+);
 app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
@@ -22,6 +28,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitalized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'development' ? false : true,
+      httpOnly: process.env.NODE_ENV === 'development' ? false : true,
+      sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
+    },
   })
 );
 app.use(cookieParser());
@@ -29,6 +40,7 @@ app.use(cookieParser());
 app.use(passport.authenticate('session'));
 app.use(passport.initialize());
 app.use(passport.session());
+app.enable('trust proxy');
 
 connectPassport();
 //import routes;
