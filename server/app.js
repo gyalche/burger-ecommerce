@@ -7,7 +7,9 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
 import passport from 'passport';
+import graphqlHttp from 'express-graphql';
 
+// import session from 'express-session';
 dotenv.config({ path: './config/config.env' });
 
 currentDB();
@@ -23,6 +25,15 @@ app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 //Using Middlewares;
+//graphql middleware;
+app.use(
+  '/graphql',
+  graphqlHttp({
+    schema: graphqlSchema,
+    rootValue: graphqlResolver,
+    graphiql: true,
+  })
+);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -46,6 +57,8 @@ connectPassport();
 //import routes;
 import userRoute from './routes/user.js';
 import orderRoute from './routes/order.js';
+import { graphqlSchema } from './graphql/schema.js';
+import { graphqlResolver } from './graphql/resolver.js';
 
 app.use('/api/v1', userRoute);
 app.use('/api/v1', orderRoute);
